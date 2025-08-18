@@ -98,5 +98,13 @@ export const STORE_LOCATIONS: StoreLocation[] = [
     longitude: -38.5789012,
     radius: 50, // 50 meters radius
     address: 'Rua Um, 1614‑C, Residencial 1 – Cágado'
+  },
+  {
+    id: '550e8400-e29b-41d4-a716-446655440002',
+    name: 'Loja Teste: CEP 61913-080',
+    latitude: -3.863168620348435,
+    longitude: -38.63179393349864,
+    radius: 50, // 50 meters radius
+    address: 'Loja Teste - CEP 61913-080'
   }
 ];
