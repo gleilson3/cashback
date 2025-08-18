@@ -104,7 +104,7 @@ export const STORE_LOCATIONS: StoreLocation[] = [
     name: 'Loja Teste: R. 8, 574b - Cagado, Maracanaú - CE, 61912-190',
     latitude: -3.8630508612761942,
     longitude: -38.631815417822644,
-    radius: 300, // 300 meters radius
+    radius: 1000, // 1km radius
     address: 'R. 8, 574b - Cagado, Maracanaú - CE, 61912-190'
   }
 ];
