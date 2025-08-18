@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, ShoppingBag, Gift, CheckCircle2, XCircle, Users, TrendingUp, Wallet, Clock, AlertTriangle, FileText, Lock, BarChart3, X, MapPin, UserCircle, Download, Calendar } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShoppingBag, Gift, CheckCircle2, XCircle, Users, TrendingUp, Wallet, Clock, AlertTriangle, FileText, Lock, BarChart3, X, MapPin, UserCircle, Download, Calendar, Navigation } from 'lucide-react';
 import DateRangeFilter from '../../components/DateRangeFilter';
+import LocationCapture from './LocationCapture';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import { generateCustomerReport } from '../../utils/reportGenerator';
@@ -8,6 +9,7 @@ import * as XLSX from 'xlsx';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('purchases');
+  const [showLocationCapture, setShowLocationCapture] = useState(false);
   const [dateRange, setDateRange] = useState('today');
   const [customStartDate, setCustomStartDate] = useState(new Date());
   const [customEndDate, setCustomEndDate] = useState(new Date());
@@ -384,16 +386,45 @@ export default function Dashboard() {
             setCustomEndDate={setCustomEndDate}
             onDateChange={loadTransactions}
           />
-          <button
-            onClick={() => setShowPasswordModal(true)}
-            className={`btn-primary py-2 px-4 text-sm flex items-center gap-2 ${
-              showAdvancedReport ? 'bg-purple-700' : ''
-            }`}
-          >
-            <BarChart3 className="w-4 h-4" />
-            Relatório Avançado
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setShowLocationCapture(true)}
+              className="btn-secondary py-2 px-4 text-sm flex items-center gap-2"
+            >
+              <Navigation className="w-4 h-4" />
+              Localização
+            </button>
+            <button
+              onClick={() => setShowPasswordModal(true)}
+              className={`btn-primary py-2 px-4 text-sm flex items-center gap-2 ${
+                showAdvancedReport ? 'bg-purple-700' : ''
+              }`}
+            >
+              <BarChart3 className="w-4 h-4" />
+              Relatório Avançado
+            </button>
+          </div>
         </div>
+
+        {/* Location Capture Modal */}
+        {showLocationCapture && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-4 border-b flex items-center justify-between">
+                <h2 className="text-lg font-semibold">Capturar Localização</h2>
+                <button
+                  onClick={() => setShowLocationCapture(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="p-4">
+                <LocationCapture />
+              </div>
+            </div>
+          </div>
+        )}
 
         {showPasswordModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
