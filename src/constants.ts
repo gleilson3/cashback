@@ -13,8 +13,8 @@ export const STORE_LOCATIONS: StoreLocation[] = [
     id: "store2",
     name: "Loja 2", 
     address: "Rua Um, 1614c - Residencial 1 - Cágado",
-    latitude: -3.8631365069746244,
-    longitude: -38.63175101815522,
+    latitude: -3.8585200957980037,
+    longitude: -38.63444706015108,
     radius: 40 // 40 meters radius
   }
 ];
