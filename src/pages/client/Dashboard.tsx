@@ -384,19 +384,6 @@ function ClientDashboard() {
 
       setCustomer(data);
       toast.success('Conta criada com sucesso!');
-
-      // Send welcome notification if WhatsApp consent is given
-      if (whatsAppConsent) {
-        try {
-          await sendWhatsAppNotification({
-            customerId: data.id,
-            type: 'welcome',
-            data: { name }
-          });
-        } catch (error) {
-          console.error('Error sending welcome notification:', error);
-        }
-      }
     } catch (error) {
       console.error('Registration error:', error);
       toast.error('Erro ao criar conta');
