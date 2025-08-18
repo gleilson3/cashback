@@ -106,10 +106,7 @@ function ClientDashboard() {
       loadTransactions();
       calculateAvailableBalance();
       checkTopCustomerStatus();
-      // Set default store and allow all operations
-      setSelectedStore(STORE_LOCATIONS[0]); // Default to first store
-      setSelectedRedemptionStore(STORE_LOCATIONS[0]);
-      setIsWithinStore(true); // Always allow operations
+      checkLocationAndSetStore();
     }
   }, [customer?.id]);
 
@@ -872,27 +869,32 @@ function ClientDashboard() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Loja
                   </label>
-                  <select
-                    value={selectedStore?.id || ''}
-                    onChange={(e) => {
-                      const store = STORE_LOCATIONS.find(s => s.id === e.target.value);
-                      setSelectedStore(store || null);
-                    }}
-                    className="input-field"
-                    required
-                  >
-                    <option value="">Selecione uma loja</option>
-                    {STORE_LOCATIONS.map(store => (
-                      <option key={store.id} value={store.id}>
-                        {store.name}
-                      </option>
-                    ))}
-                  </select>
+                  {!isWithinStore ? (
+                    <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                      <p className="text-sm text-yellow-700 mb-2">
+                        <MapPin className="w-4 h-4 inline mr-1" />
+                        Você precisa estar em uma das nossas lojas para registrar compras
+                      </p>
+                      <button
+                        onClick={checkLocationAndSetStore}
+                        className="btn-secondary py-2 px-4 text-sm"
+                      >
+                        Verificar Localização
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                      <p className="text-sm text-green-700">
+                        <CheckCircle2 className="w-4 h-4 inline mr-1" />
+                        {selectedStore?.name}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <button
                   type="submit"
-                  disabled={isSubmitting || !selectedStore || !transactionAmount}
+                  disabled={isSubmitting || !isWithinStore || !transactionAmount}
                   className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Processando...' : 'Registrar Compra'}
@@ -964,22 +966,27 @@ function ClientDashboard() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Loja para Resgate
                     </label>
-                    <select
-                      value={selectedRedemptionStore?.id || ''}
-                      onChange={(e) => {
-                        const store = STORE_LOCATIONS.find(s => s.id === e.target.value);
-                        setSelectedRedemptionStore(store || null);
-                      }}
-                      className="input-field"
-                      required
-                    >
-                      <option value="">Selecione uma loja</option>
-                      {STORE_LOCATIONS.map(store => (
-                        <option key={store.id} value={store.id}>
-                          {store.name}
-                        </option>
-                      ))}
-                    </select>
+                    {!isWithinStore ? (
+                      <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <p className="text-sm text-yellow-700 mb-2">
+                          <MapPin className="w-4 h-4 inline mr-1" />
+                          Você precisa estar em uma das nossas lojas para resgatar
+                        </p>
+                        <button
+                          onClick={checkLocationAndSetStore}
+                          className="btn-secondary py-2 px-4 text-sm"
+                        >
+                          Verificar Localização
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                        <p className="text-sm text-green-700">
+                          <CheckCircle2 className="w-4 h-4 inline mr-1" />
+                          {selectedRedemptionStore?.name}
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex gap-2">
@@ -995,7 +1002,7 @@ function ClientDashboard() {
                     </button>
                     <button
                       type="submit"
-                      disabled={isSubmitting || !selectedRedemptionStore || !redemptionAmount}
+                      disabled={isSubmitting || !isWithinStore || !redemptionAmount}
                       className="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? 'Processando...' : 'Resgatar'}
