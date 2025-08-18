@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { getCurrentPosition, isWithinStoreRange, getClosestStore, formatDistance } from '../../utils/geolocation';
 import { getAvailableBalance, getNextExpiringCashback } from '../../utils/transactions';
 import type { Customer, Transaction, StoreLocation } from '../../types';
-import { STORE_LOCATIONS } from '../../constants';
+import { STORE_LOCATIONS } from '../../types';
 import PromotionsAlert from '../../components/PromotionsAlert';
 import CashbackAnimation from '../../components/CashbackAnimation';
 import ConfirmationModal from '../../components/ConfirmationModal';

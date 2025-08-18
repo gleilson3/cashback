@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { MapPin, Copy, CheckCircle2, AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { supabase } from '../../lib/supabase';
+import { STORE_LOCATIONS } from '../../types';
 
 export default function LocationCapture() {
   const [location, setLocation] = useState<GeolocationPosition | null>(null);
