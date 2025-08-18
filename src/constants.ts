@@ -16,5 +16,13 @@ export const STORE_LOCATIONS: StoreLocation[] = [
     latitude: -3.8585200957980037,
     longitude: -38.63444706015108,
     radius: 40 // 40 meters radius
+  },
+  {
+    id: "store_test",
+    name: "Loja Teste",
+    address: "Localização de Teste - Coordenadas Específicas",
+    latitude: -3.8630833333333333, // 3°51'47.1"S
+    longitude: -38.63175, // 38°37'54.3"W
+    radius: 50 // 50 meters radius
   }
 ];
